@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Target, BookOpen, CheckCircle2, Lock, Play } from 'lucide-react';
 import { courseData } from '../data/courseData';
@@ -8,6 +9,11 @@ const WeekOverview = () => {
   const { weekNumber } = useParams();
   const navigate = useNavigate();
   const { progress, isModuleCompleted } = useProgress();
+
+  // Scroll to top when navigating to a new week
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [weekNumber]);
 
   const week = courseData.course.weeks.find(w => w.weekNumber === parseInt(weekNumber));
 
