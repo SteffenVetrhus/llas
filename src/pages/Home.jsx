@@ -5,7 +5,7 @@ import { courseData } from '../data/courseData';
 import { useProgress } from '../contexts/ProgressContext';
 
 const Home = () => {
-  const { progress } = useProgress();
+  const { progress, isWeekCompleted } = useProgress();
   const totalWeeks = courseData.course.totalWeeks;
 
   const features = [
@@ -121,26 +121,35 @@ const Home = () => {
       >
         <h3 className="heading-2 mb-6 text-center">Your 10-Week Journey</h3>
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {courseData.course.weeks.map((week) => (
-            <Link key={week.weekNumber} to={`/week/${week.weekNumber}`}>
-              <motion.div
-                whileHover={{ scale: 1.05, y: -5 }}
-                whileTap={{ scale: 0.95 }}
-                className="glass-effect p-4 rounded-xl cursor-pointer border-2 border-transparent hover:border-primary-500/50 transition-all duration-300"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-semibold text-primary-400">Week {week.weekNumber}</span>
-                  {progress.weekProgress[week.weekNumber] > 0 && (
-                    <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                      <span className="text-xs text-white">✓</span>
-                    </div>
-                  )}
-                </div>
-                <h4 className="font-bold text-white mb-2">{week.title}</h4>
-                <p className="text-xs text-gray-400 line-clamp-2">{week.mission}</p>
-              </motion.div>
-            </Link>
-          ))}
+          {courseData.course.weeks.map((week) => {
+            const weekCompleted = isWeekCompleted(week);
+            const weekStarted = progress.weekProgress[week.weekNumber] > 0;
+
+            return (
+              <Link key={week.weekNumber} to={`/week/${week.weekNumber}`}>
+                <motion.div
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="glass-effect p-4 rounded-xl cursor-pointer border-2 border-transparent hover:border-primary-500/50 transition-all duration-300"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-semibold text-primary-400">Week {week.weekNumber}</span>
+                    {weekCompleted ? (
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <span className="text-xs text-white">✓</span>
+                      </div>
+                    ) : weekStarted ? (
+                      <div className="w-6 h-6 bg-orange-500/70 rounded-full flex items-center justify-center">
+                        <span className="text-xs text-white">•••</span>
+                      </div>
+                    ) : null}
+                  </div>
+                  <h4 className="font-bold text-white mb-2">{week.title}</h4>
+                  <p className="text-xs text-gray-400 line-clamp-2">{week.mission}</p>
+                </motion.div>
+              </Link>
+            );
+          })}
         </div>
       </motion.div>
 

@@ -170,6 +170,15 @@ export const ProgressProvider = ({ children }) => {
     return progress.completedModules.includes(moduleId);
   };
 
+  const isWeekCompleted = (week) => {
+    // A week is only completed if it has modules AND all modules are completed
+    if (!week.modules || week.modules.length === 0) {
+      return false;
+    }
+
+    return week.modules.every(module => progress.completedModules.includes(module.moduleId));
+  };
+
   const value = {
     progress,
     completeModule,
@@ -178,6 +187,7 @@ export const ProgressProvider = ({ children }) => {
     resetProgress,
     getWeekCompletion,
     isModuleCompleted,
+    isWeekCompleted,
     unlockAchievement
   };
 
