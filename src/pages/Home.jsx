@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Zap, Target, Brain, Sparkles } from 'lucide-react';
 import { courseData } from '../data/courseData';
@@ -7,6 +8,11 @@ import { useProgress } from '../contexts/ProgressContext';
 const Home = () => {
   const { progress, isWeekCompleted } = useProgress();
   const totalWeeks = courseData.course.totalWeeks;
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   const features = [
     {

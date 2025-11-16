@@ -1,9 +1,15 @@
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 import { Trophy, Flame, BookOpen, Star, Zap, Award, Lock } from 'lucide-react';
 import { useProgress } from '../contexts/ProgressContext';
 
 const Achievements = () => {
   const { progress } = useProgress();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   const allAchievements = [
     // Streak achievements

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Trophy, Flame, Target, TrendingUp, Calendar, Award } from 'lucide-react';
 import { useProgress } from '../contexts/ProgressContext';
@@ -6,6 +7,11 @@ import { courseData } from '../data/courseData';
 
 const Dashboard = () => {
   const { progress, getWeekCompletion } = useProgress();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   const calculateLevel = (xp) => {
     return Math.floor(xp / 500) + 1;

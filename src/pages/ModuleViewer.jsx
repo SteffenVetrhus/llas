@@ -1,4 +1,5 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, CheckCircle2, ArrowRight, Trophy } from 'lucide-react';
 import { courseData } from '../data/courseData';
@@ -14,6 +15,11 @@ const ModuleViewer = () => {
   const { weekNumber, moduleId } = useParams();
   const navigate = useNavigate();
   const { completeModule, isModuleCompleted, saveQuizResult } = useProgress();
+
+  // Scroll to top when navigating to a new module
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [moduleId, weekNumber]);
 
   const week = courseData.course.weeks.find(w => w.weekNumber === parseInt(weekNumber));
   const module = week?.modules?.find(m => m.moduleId === moduleId);
