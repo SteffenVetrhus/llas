@@ -22,18 +22,18 @@ const Layout = () => {
     <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="glass-effect-strong sticky top-0 z-50 border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2 group">
+            <Link to="/" className="flex items-center space-x-1.5 sm:space-x-2 group flex-shrink-0">
               <motion.div
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
-                className="bg-gradient-to-r from-primary-600 to-secondary-600 p-2 rounded-xl glow"
+                className="bg-gradient-to-r from-primary-600 to-secondary-600 p-1.5 sm:p-2 rounded-lg sm:rounded-xl glow"
               >
-                <BookOpen className="w-6 h-6 text-white" />
+                <BookOpen className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
               </motion.div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary-300 to-secondary-300 bg-clip-text text-transparent">
+              <span className="text-sm sm:text-xl font-bold bg-gradient-to-r from-primary-300 to-secondary-300 bg-clip-text text-transparent whitespace-nowrap">
                 Spanish Mission
               </span>
             </Link>
@@ -62,8 +62,8 @@ const Layout = () => {
               })}
             </nav>
 
-            {/* Stats Display */}
-            <div className="flex items-center space-x-4">
+            {/* Stats Display - Desktop */}
+            <div className="hidden md:flex items-center space-x-4">
               {/* Streak */}
               <motion.div
                 whileHover={{ scale: 1.1 }}
@@ -88,6 +88,27 @@ const Layout = () => {
                   <span className="text-xs text-gray-400">XP</span>
                   <span className="text-sm font-bold text-primary-300">{progress.totalXP}</span>
                 </div>
+              </motion.div>
+            </div>
+
+            {/* Stats Display - Mobile (Compact) */}
+            <div className="flex md:hidden items-center space-x-1.5 flex-shrink-0">
+              {/* Streak - Icon Only */}
+              <motion.div
+                whileTap={{ scale: 0.9 }}
+                className="glass-effect px-2 py-1.5 rounded-lg flex items-center space-x-1"
+              >
+                <Flame className="w-3.5 h-3.5 text-orange-400" />
+                <span className="text-xs font-bold text-orange-400">{progress.streak}</span>
+              </motion.div>
+
+              {/* XP - Icon Only */}
+              <motion.div
+                whileTap={{ scale: 0.9 }}
+                className="glass-effect px-2 py-1.5 rounded-lg flex items-center space-x-1"
+              >
+                <Trophy className="w-3.5 h-3.5 text-primary-400" />
+                <span className="text-xs font-bold text-primary-300">{progress.totalXP}</span>
               </motion.div>
             </div>
           </div>
